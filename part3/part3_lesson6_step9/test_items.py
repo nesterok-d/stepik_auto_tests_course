@@ -1,13 +1,11 @@
-from telnetlib import EC
-
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
+import time
 
 link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 
-def test_guest_should_see_login_link(browser):
+def test_btn_add_to_basket(browser):
     browser.get(link)
-    button = WebDriverWait(browser, 5).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn-add-to-basket"))
-    )
-    button.click()
+    button = browser.find_element(By.CSS_SELECTOR, "button.btn-add-to-basket")
+
+    assert button.text is not None, "кнопка купить отсутствует"
+    time.sleep(20)
