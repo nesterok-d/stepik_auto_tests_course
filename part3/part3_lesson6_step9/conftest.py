@@ -9,8 +9,9 @@ def browser(request):
     user_language = request.config.getoption("user_language")
     options = webdriver.ChromeOptions()
     options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
-    browser = webdriver.Chrome(options=options)
-
+    #browser = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(chrome_options=options, executable_path=r"chromedriver.exe")
+    driver = browser.set_driver(driver)
     yield browser
     print("\nquit browser..")
     browser.quit()
