@@ -1,11 +1,12 @@
 import math
-#наследование свойств базовой страницы из класса BasePage
+# наследование свойств базовой страницы из класса BasePage
 from .base_page import BasePage
 
-#наследование от ProductPageLocators
+# наследование от ProductPageLocators
 from .locators import ProductPageLocators
 
-#создание класса "основная станица"
+
+# создание класса "основная станица"
 class ProductPage(BasePage):
 
     # метод для нахождения кнопки добавления товара в корзину
@@ -17,9 +18,10 @@ class ProductPage(BasePage):
         btn_to_basket = self.browser.find_element(*ProductPageLocators.BUTTON_ADD_TO_BASKET)
         btn_to_basket.click()
 
-    #метод поиска сообщения об успешном добавлении в корзину
+    # метод поиска сообщения об успешном добавлении в корзину
     def should_be_success_message(self):
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "сообщение о добавлении товара в корзину не получено"
+        assert self.is_element_present(
+            *ProductPageLocators.SUCCESS_MESSAGE), "сообщение о добавлении товара в корзину не получено"
 
     def take_title_the_book(self):
         title_the_book = self.browser.find_element(*ProductPageLocators.TITLE_THE_BOOK)
@@ -31,4 +33,8 @@ class ProductPage(BasePage):
 
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_is_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
