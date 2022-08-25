@@ -17,5 +17,8 @@ class LoginPageLocators():
     REGISTRATION_BUTTON = (By.CSS_SELECTOR, "button.btn-lg[name='registration_submit']")
 
 class ProductPageLocators():
+    TITLE_THE_BOOK = (By.CSS_SELECTOR, "div.product_main h1")
     BUTTON_ADD_TO_BASKET = (By.CSS_SELECTOR, "button.btn-add-to-basket")
-    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alertinner")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alertinner strong")
+
+
