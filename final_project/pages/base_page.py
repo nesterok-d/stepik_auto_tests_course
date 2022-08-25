@@ -1,9 +1,12 @@
 import math
+from telnetlib import EC
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 
 #создение класса "старница"
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 class BasePage():
     #создение метода инициализации объекта класса (конструктор)
@@ -39,3 +42,10 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")
 
+    def is_not_element_present(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return True
+
+        return False
