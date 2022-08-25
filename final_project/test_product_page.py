@@ -3,6 +3,8 @@ import time
 #наследуем методы из класса MainPage
 import pytest
 
+from final_project.pages.basket_page import BasketPage
+from final_project.pages.locators import BasePageLocators
 from final_project.pages.login_page import LoginPage
 from final_project.pages.product_page import ProductPage
 
@@ -69,9 +71,19 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 def test_guest_can_go_to_login_page_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/"
-    page = ProductPage(browser, link)                         # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)                      # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
     page.open()                                            # открываем страницу
     page.go_to_login_page()                                # выполняем метод страницы — переходим на страницу логина
     login_page = LoginPage(browser, browser.current_url)   # открываем страницу с формами логина и регистрации
     login_page.should_be_login_page()                      # выполняем проверку на отображение страницы
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()
+    page.is_element_present(*BasePageLocators.BASKET_LINK)
+    page.go_to_basket_page()
+    basket = BasketPage(browser, browser.current_url)
+    basket.should_be_message_in_basket()
+    basket.should_be_no_items_in_basket()
