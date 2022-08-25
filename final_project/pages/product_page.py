@@ -28,3 +28,7 @@ class ProductPage(BasePage):
     def take_success_message(self):
         success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE)
         return success_message.text
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
