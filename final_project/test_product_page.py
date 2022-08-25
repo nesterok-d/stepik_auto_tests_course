@@ -29,6 +29,6 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.add_product_to_basket()
     page.solve_quiz_and_get_code()
     page.should_be_success_message()
-    assert page.take_success_message() in page.take_title_the_book()
+    assert page.take_success_message() == page.take_title_the_book()
 
     time.sleep(1)
